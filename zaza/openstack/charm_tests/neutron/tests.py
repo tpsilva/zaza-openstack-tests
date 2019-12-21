@@ -246,8 +246,16 @@ class NeutronApiTest(test_utils.OpenStackBaseTest):
             pgrep_full = True
         else:
             pgrep_full = False
+        ssl_cert = zaza.model.get_application_config(
+            'neutron-api')['debug']['ssl_cert']
+        ssl_key = zaza.model.get_application_config(
+            'neutron-api')['debug']['ssl_key']
+        if ssl_cert and ssl_key:
+            services = ["neutron-server", "apache2", "haproxy"]
+        else:
+            services = ["neutron-server", "haproxy"]
         with self.pause_resume(
-                ["neutron-server", "apache2", "haproxy"],
+                services,
                 pgrep_full=pgrep_full):
             logging.info("Testing pause resume")
 
