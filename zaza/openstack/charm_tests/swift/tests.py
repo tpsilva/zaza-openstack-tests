@@ -76,9 +76,9 @@ class SwiftProxyTests(test_utils.OpenStackBaseTest):
         they are started
         """
         ssl_cert = zaza.model.get_application_config(
-            'neutron-api')['debug']['ssl_cert']
+            'swift-proxy')['ssl_cert']['value']
         ssl_key = zaza.model.get_application_config(
-            'neutron-api')['debug']['ssl_key']
+            'swift-proxy')['ssl_key']['value']
         services = ['swift-proxy-server', 'haproxy', 'apache2',
                     'memcached']
         if not ssl_cert and not ssl_key:
