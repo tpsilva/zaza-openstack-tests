@@ -75,10 +75,10 @@ class SwiftProxyTests(test_utils.OpenStackBaseTest):
         Pause service and check services are stopped then resume and check
         they are started
         """
-        ssl_cert = zaza.model.get_application_config(
-            'swift-proxy')['ssl_cert']['value']
-        ssl_key = zaza.model.get_application_config(
-            'swift-proxy')['ssl_key']['value']
+        ssl_cert = openstack_utils.get_application_config_option(
+            'swift-proxy', 'ssl_cert')
+        ssl_key = openstack_utils.get_application_config_option(
+            'swift-proxy', 'ssl_key')
         services = ['swift-proxy-server', 'haproxy', 'apache2',
                     'memcached']
         if not ssl_cert and not ssl_key:

@@ -246,10 +246,10 @@ class NeutronApiTest(test_utils.OpenStackBaseTest):
             pgrep_full = True
         else:
             pgrep_full = False
-        ssl_cert = zaza.model.get_application_config(
-            'neutron-api')['ssl_cert']['value']
-        ssl_key = zaza.model.get_application_config(
-            'neutron-api')['ssl_key']['value']
+        ssl_cert = openstack_utils.get_application_config_option(
+            'neutron-api', 'ssl_cert')
+        ssl_key = openstack_utils.get_application_config_option(
+            'neutron-api', 'ssl_key')
         if ssl_cert and ssl_key:
             services = ["neutron-server", "apache2", "haproxy"]
         else:
