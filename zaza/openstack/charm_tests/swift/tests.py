@@ -75,8 +75,15 @@ class SwiftProxyTests(test_utils.OpenStackBaseTest):
         Pause service and check services are stopped then resume and check
         they are started
         """
-        with self.pause_resume(['swift-proxy-server', 'haproxy', 'apache2',
-                                'memcached']):
+        ssl_cert = zaza.model.get_application_config(
+            'neutron-api')['debug']['ssl_cert']
+        ssl_key = zaza.model.get_application_config(
+            'neutron-api')['debug']['ssl_key']
+        services = ['swift-proxy-server', 'haproxy', 'apache2',
+                    'memcached']
+        if not ssl_cert and not ssl_key:
+            services.remove('apache2')
+        with self.pause_resume(services):
             logging.info("Testing pause resume")
 
     def test_903_disk_usage_action(self):
